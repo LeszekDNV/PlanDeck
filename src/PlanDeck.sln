@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanDeck.Client", "PlanDeck.Client\PlanDeck.Client.csproj", "{B6A76963-DD61-4694-B944-208535CCA889}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanDeck.App", "PlanDeck.App\PlanDeck.App.csproj", "{C514AE64-466E-437E-B61C-41C4BA48ACC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanDeck.Domain", "PlanDeck.Domain\PlanDeck.Domain.csproj", "{EC3F00CA-F7A0-435A-B340-15743565ACFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanDeck.Application", "PlanDeck.Application\PlanDeck.Application.csproj", "{77C876D7-80A8-467B-AC52-B212E0B5917F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanDeck.Infrastructure", "PlanDeck.Infrastructure\PlanDeck.Infrastructure.csproj", "{D821363F-44BD-4697-AB74-912867824A57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanDeck.Contracts", "PlanDeck.Contracts\PlanDeck.Contracts.csproj", "{5A970E9E-9A44-41F8-A91F-7BEEFF7C4569}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6A76963-DD61-4694-B944-208535CCA889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6A76963-DD61-4694-B944-208535CCA889}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6A76963-DD61-4694-B944-208535CCA889}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6A76963-DD61-4694-B944-208535CCA889}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C514AE64-466E-437E-B61C-41C4BA48ACC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C514AE64-466E-437E-B61C-41C4BA48ACC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C514AE64-466E-437E-B61C-41C4BA48ACC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C514AE64-466E-437E-B61C-41C4BA48ACC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC3F00CA-F7A0-435A-B340-15743565ACFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC3F00CA-F7A0-435A-B340-15743565ACFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC3F00CA-F7A0-435A-B340-15743565ACFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC3F00CA-F7A0-435A-B340-15743565ACFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77C876D7-80A8-467B-AC52-B212E0B5917F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77C876D7-80A8-467B-AC52-B212E0B5917F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77C876D7-80A8-467B-AC52-B212E0B5917F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77C876D7-80A8-467B-AC52-B212E0B5917F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D821363F-44BD-4697-AB74-912867824A57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D821363F-44BD-4697-AB74-912867824A57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D821363F-44BD-4697-AB74-912867824A57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D821363F-44BD-4697-AB74-912867824A57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A970E9E-9A44-41F8-A91F-7BEEFF7C4569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A970E9E-9A44-41F8-A91F-7BEEFF7C4569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A970E9E-9A44-41F8-A91F-7BEEFF7C4569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A970E9E-9A44-41F8-A91F-7BEEFF7C4569}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
