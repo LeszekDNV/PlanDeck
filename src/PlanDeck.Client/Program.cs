@@ -18,5 +18,6 @@ builder.Services.AddScoped<GrpcChannel>(services => GrpcChannel.ForAddress(path,
 }));
 builder.Services.AddMudServices().AddBlazoredLocalStorage();
 
-builder.Services.AddTransient<RoomService>();
+builder.Services.AddTransient<RoomProxyService>();
+builder.Services.AddScoped<IUserLocalStorageService, UserLocalStorageService>();
 await builder.Build().RunAsync();

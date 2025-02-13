@@ -10,5 +10,6 @@ public class CreateRoomResponse()
         Id = id;
     }
 
+    [ProtoMember(1)]
     public string Id { get; }
 }
