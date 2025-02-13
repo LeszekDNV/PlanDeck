@@ -1,33 +1,18 @@
 ﻿@page "/counter"
-@using PlanDeck.Contracts.Room.Create
-@inject Services.RoomService _roomService
 
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
 
-<p role="status">Current count: <FluentBadge Appearance="Appearance.Neutral">@currentCount</FluentBadge></p>
+<p role="status">Current count: @currentCount</p>
 
-<FluentButton Appearance="Appearance.Accent" @onclick="IncrementCount">Click me</FluentButton>
-
-<FluentButton Appearance="Appearance.Accent" @onclick="TestCall">Test Call</FluentButton>
-
-<FluentLabel>@workingText</FluentLabel>
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
     private int currentCount = 0;
-    private string workingText = "Working...";
-
 
     private void IncrementCount()
     {
         currentCount++;
     }
-
-    private async Task TestCall()
-    {
-        var response = _roomService.CreateRoom(new CreateRoomRequest());
-        workingText = response != null ? "Success" : "Failed";;
-    }
-
 }

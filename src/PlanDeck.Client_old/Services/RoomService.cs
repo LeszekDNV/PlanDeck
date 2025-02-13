@@ -1,6 +1,6 @@
 ﻿using Grpc.Net.Client;
-using PlanDeck.Contracts.Room.Create;
 using PlanDeck.Contracts.Room;
+using PlanDeck.Contracts.Room.Create;
 using ProtoBuf.Grpc.Client;
 
 namespace PlanDeck.Client.Services;
