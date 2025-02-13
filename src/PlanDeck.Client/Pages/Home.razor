@@ -1,7 +1,41 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<div id="home" class="header-hero bg_cover d-flex align-center">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="shape shape-4"></div>
+    <div class="shape shape-5"></div>
+    <div class="shape shape-6"></div>
 
-<h1>Hello, world!</h1>
+    <MudContainer>
+        <MudGrid>
+            <MudItem xs="8">
+                <MudPaper Square Elevation="0" Class="align-center justify-center mud-width-full py-8 transparent">
+                    <MudText Typo="Typo.h2" Class="d-block">
+                        Scrum Poker for agile teams
+                    </MudText>
+                    <MudText Typo="Typo.body1" Class="d-block">
+                        Easy-to-use and fun story point estimations.
+                    </MudText>
 
-Welcome to your new app.
+                    <MudButton Size="Size.Large"
+                               Variant="Variant.Filled"
+                               Href="/create-planning"
+                               Color="Color.Primary"
+                               Class="d-block">
+                        Start new planning
+                    </MudButton>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="4">
+            </MudItem>
+        </MudGrid>
+    </MudContainer>
+
+
+    <div class="header-shape-1"></div> <!-- header shape -->
+    <div class="header-shape-2">
+        <img src="images/header-shape-2.svg" alt="shape">
+    </div> <!-- header shape -->
+</div>
