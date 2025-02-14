@@ -1,28 +1,23 @@
-using Grpc.Net.Client;
+using Blazored.LocalStorage;
 using Grpc.Net.Client.Web;
+using Grpc.Net.Client;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.FluentUI.AspNetCore.Components;
+using PlanDeck.Client;
 using PlanDeck.Client.Services;
+using MudBlazor.Services;
 
-namespace PlanDeck.Client;
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.RootComponents.Add<App>("#app");
+builder.RootComponents.Add<HeadOutlet>("head::after");
 
-public class Program
+var path = builder.HostEnvironment.BaseAddress;
+builder.Services.AddScoped<GrpcChannel>(services => GrpcChannel.ForAddress(path, new GrpcChannelOptions
 {
-    public static async Task Main(string[] args)
-    {
-        var builder = WebAssemblyHostBuilder.CreateDefault(args);
-        builder.RootComponents.Add<App>("#app");
-        builder.RootComponents.Add<HeadOutlet>("head::after");
-        builder.Services.AddFluentUIComponents();
+    HttpHandler = new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler())
+}));
+builder.Services.AddMudServices().AddBlazoredLocalStorage();
 
-        var path = builder.HostEnvironment.BaseAddress;
-        builder.Services.AddScoped<GrpcChannel>(services => GrpcChannel.ForAddress(path, new GrpcChannelOptions
-        {
-            HttpHandler = new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler())
-        }));
-        builder.Services.AddTransient<RoomService>();
-
-        await builder.Build().RunAsync();
-    }
-}
+builder.Services.AddTransient<RoomProxyService>();
+builder.Services.AddScoped<IUserLocalStorageService, UserLocalStorageService>();
+await builder.Build().RunAsync();

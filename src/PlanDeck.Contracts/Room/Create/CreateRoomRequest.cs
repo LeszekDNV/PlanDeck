@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using PlanDeck.Contracts.Dtos;
+using ProtoBuf;
 
 namespace PlanDeck.Contracts.Room.Create;
 
@@ -43,6 +44,9 @@ public record CreateRoomRequest
 
     [ProtoMember(6)]
     public bool ShowAverage { get; set; }
+
+    [ProtoMember(7)]
+    public UserDto Owner { get; set; }
 }
 
 public enum VotingSystemsDto

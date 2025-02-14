@@ -26,11 +26,11 @@ public class VoteConfiguration : IEntityTypeConfiguration<Vote>
         builder.HasOne(v => v.Issue)
             .WithMany(i => i.Votes)
             .HasForeignKey(v => v.IssueId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(v => v.Participant)
             .WithMany(p => p.Votes)
             .HasForeignKey(v => v.ParticipantId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

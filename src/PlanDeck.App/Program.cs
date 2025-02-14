@@ -6,6 +6,7 @@ using ProtoBuf.Grpc.Server;
 using PlanDeck.App.GrpcServices;
 
 namespace PlanDeck.App;
+
 public class Program
 {
     public static void Main(string[] args)
@@ -39,20 +40,19 @@ public class Program
         app.UseBlazorFrameworkFiles();
         app.UseStaticFiles();
 
-        app.UseGrpcWeb(new GrpcWebOptions { DefaultEnabled = true });
-        app.MapGrpcService<GrpcRoomService>();
 
         app.MapFallbackToFile("index.html");
 
 
         // Configure the HTTP request pipeline.
-        //app.MapGrpcService<GreeterService>();
+        app.UseGrpcWeb(new GrpcWebOptions { DefaultEnabled = true });
+        app.MapGrpcService<GrpcRoomService>();
         //app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
-        //using (AppDbContext? dbContext = app.Services.CreateScope().ServiceProvider.GetService<AppDbContext>())
-        //{
-        //    dbContext?.Database.Migrate();
-        //}
+        using (AppDbContext? dbContext = app.Services.CreateScope().ServiceProvider.GetService<AppDbContext>())
+        {
+            dbContext?.Database.Migrate();
+        }
 
         app.Run();
     }

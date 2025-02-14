@@ -1,0 +1,43 @@
+﻿<MudDialog OnKeyDown="OnKeyDownAsync" DefaultFocus="DefaultFocus.FirstChild" >
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.SupervisedUserCircle" Class="mr-3 mb-n1"/>
+            Create your display name?
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudTextField AutoFocus Label="Your display name" Variant="Variant.Outlined" @bind-Value="DisplayName" MaxLength="99" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="Submit">Continue</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    private bool isClosed;
+
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; }
+
+    private string? DisplayName { get; set; }
+
+    private void Submit()
+    {
+        if (string.IsNullOrWhiteSpace(DisplayName))
+        {
+            DisplayName = "My display name";
+        }
+
+        isClosed = true;
+        MudDialog.Close(DialogResult.Ok(DisplayName));
+    }
+
+    private void OnKeyDownAsync(KeyboardEventArgs args)
+    {
+        //TODO: Prevent reveal open dialog on enter
+        // if (!isClosed && args.Key == "Enter")
+        // {
+        //     Submit();
+        // }
+    }
+}

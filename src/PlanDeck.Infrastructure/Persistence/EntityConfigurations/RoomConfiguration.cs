@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PlanDeck.Domain.Entities;
+using PlanDeck.Domain.Entities.Enums;
 
 namespace PlanDeck.Infrastructure.Persistence.EntityConfigurations;
 
@@ -22,13 +23,25 @@ public class RoomConfiguration : IEntityTypeConfiguration<Room>
             .HasMaxLength(200);
 
         builder.Property(r => r.VotingSystem)
-            .IsRequired();
+            .IsRequired()
+            .HasMaxLength(25)
+            .HasConversion(
+                v => v.ToString(),
+                v => (VotingSystem)Enum.Parse(typeof(VotingSystem), v));
 
         builder.Property(r => r.WhoCanRevealCards)
-            .IsRequired();
+            .IsRequired()
+            .HasMaxLength(10)
+            .HasConversion(
+                v => v.ToString(),
+                v => (RoomPermission)Enum.Parse(typeof(RoomPermission), v));
 
         builder.Property(r => r.WhoCanManageIssues)
-            .IsRequired();
+            .IsRequired()
+            .HasMaxLength(10)
+            .HasConversion(
+                v => v.ToString(),
+                v => (RoomPermission)Enum.Parse(typeof(RoomPermission), v));
 
         builder.Property(r => r.AutoRevealCards)
             .IsRequired();
@@ -42,11 +55,11 @@ public class RoomConfiguration : IEntityTypeConfiguration<Room>
         builder.HasMany(r => r.Participants)
             .WithOne(p => p.Room)
             .HasForeignKey(p => p.RoomId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasMany(r => r.Issues)
             .WithOne(i => i.Room)
             .HasForeignKey(i => i.RoomId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }
