@@ -6,7 +6,7 @@
         </MudText>
     </TitleContent>
     <DialogContent>
-        <MudTextField AutoFocus Label="Your display name" Variant="Variant.Outlined" @bind-Value="DisplayName" />
+        <MudTextField AutoFocus Label="Your display name" Variant="Variant.Outlined" @bind-Value="DisplayName" MaxLength="99" />
     </DialogContent>
     <DialogActions>
         <MudButton Color="Color.Primary" OnClick="Submit">Continue</MudButton>

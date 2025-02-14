@@ -2,71 +2,72 @@
 @using PlanDeck.Contracts.Room.Create
 
 
-    <MudGrid Justify="Justify.Center">
-        <MudItem md="8" xs="12">
-            <div class="transparent">
-                <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
-                    <MudTextField Label="Room name"
-                                  Variant="Variant.Outlined"
-                                  Class="pa-4"
-                                  @bind-Value="model.Name"
-                                  For="@(() => model.Name)"/>
-                    <MudSelect @bind-Value="model.VotingSystem"
-                               Variant="Variant.Outlined"
-                               Class="pa-4"
-                               Label="Voiting system">
-                        <MudSelectItem Value="@(VotingSystemsDto.Fibonacci)">Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ?, ☕)</MudSelectItem>
-                        <MudSelectItem Value="@(VotingSystemsDto.ModifiedFibonacci)">Fibonacci (0, 1/2, 1, 2, 3, 5, 8, 13, 20, 40, 100, ?, ☕)</MudSelectItem>
-                        <MudSelectItem Value="@(VotingSystemsDto.TShirt)">Fibonacci (XS, S, M, L, XL, ?, ☕)</MudSelectItem>
-                        <MudSelectItem Value="@(VotingSystemsDto.PowersOf2)">Fibonacci (0, 1, 2, 4, 8, 16, 32, 64, ?, ☕)</MudSelectItem>
-                    </MudSelect>
+<MudGrid Justify="Justify.Center">
+    <MudItem md="8" xs="12">
+        <div class="transparent">
+            <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+                <MudTextField Label="Room name"
+                              Variant="Variant.Outlined"
+                              Class="pa-4"
+                              MaxLength="200"
+                              @bind-Value="model.Name"
+                              For="@(() => model.Name)"/>
+                <MudSelect @bind-Value="model.VotingSystem"
+                           Variant="Variant.Outlined"
+                           Class="pa-4"
+                           Label="Voiting system">
+                    <MudSelectItem Value="@(VotingSystemsDto.Fibonacci)">Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ?, ☕)</MudSelectItem>
+                    <MudSelectItem Value="@(VotingSystemsDto.ModifiedFibonacci)">Fibonacci (0, 1/2, 1, 2, 3, 5, 8, 13, 20, 40, 100, ?, ☕)</MudSelectItem>
+                    <MudSelectItem Value="@(VotingSystemsDto.TShirt)">Fibonacci (XS, S, M, L, XL, ?, ☕)</MudSelectItem>
+                    <MudSelectItem Value="@(VotingSystemsDto.PowersOf2)">Fibonacci (0, 1, 2, 4, 8, 16, 32, 64, ?, ☕)</MudSelectItem>
+                </MudSelect>
 
-                    <MudExpansionPanels>
-                        <MudExpansionPanel Text="More options ..." Expanded="false">
-                            <MudSelect @bind-Value="model.WhoCanManageIssues"
-                                       Variant="Variant.Outlined"
-                                       Class="pa-4"
-                                       Label="Who can manage tasks">
-                                <MudSelectItem Value="@(RoomPermissionsDto.Everyone)">Everyone</MudSelectItem>
-                                <MudSelectItem Value="@(RoomPermissionsDto.OwnerOnly)">Only me</MudSelectItem>
-                            </MudSelect>
+                <MudExpansionPanels>
+                    <MudExpansionPanel Text="More options ..." Expanded="false">
+                        <MudSelect @bind-Value="model.WhoCanManageIssues"
+                                   Variant="Variant.Outlined"
+                                   Class="pa-4"
+                                   Label="Who can manage tasks">
+                            <MudSelectItem Value="@(RoomPermissionsDto.Everyone)">Everyone</MudSelectItem>
+                            <MudSelectItem Value="@(RoomPermissionsDto.OwnerOnly)">Only me</MudSelectItem>
+                        </MudSelect>
 
-                            <MudSelect @bind-Value="model.WhoCanRevealCards"
-                                       Variant="Variant.Outlined"
-                                       Class="pa-4"
-                                       Label="Who can reveal cards">
-                                <MudSelectItem Value="@(RoomPermissionsDto.Everyone)">Everyone</MudSelectItem>
-                                <MudSelectItem Value="@(RoomPermissionsDto.OwnerOnly)">Only me</MudSelectItem>
-                            </MudSelect>
+                        <MudSelect @bind-Value="model.WhoCanRevealCards"
+                                   Variant="Variant.Outlined"
+                                   Class="pa-4"
+                                   Label="Who can reveal cards">
+                            <MudSelectItem Value="@(RoomPermissionsDto.Everyone)">Everyone</MudSelectItem>
+                            <MudSelectItem Value="@(RoomPermissionsDto.OwnerOnly)">Only me</MudSelectItem>
+                        </MudSelect>
 
-                            <MudSwitch T="bool"
-                                       LabelPlacement="Placement.Start"
-                                       Color="Color.Primary"
-                                       Class="pa-4"
-                                       @bind-Value="model.AutoRevealCards">
-                                Auto-reveal cards
-                            </MudSwitch>
+                        <MudSwitch T="bool"
+                                   LabelPlacement="Placement.Start"
+                                   Color="Color.Primary"
+                                   Class="pa-4"
+                                   @bind-Value="model.AutoRevealCards">
+                            Auto-reveal cards
+                        </MudSwitch>
 
-                            <MudSwitch T="bool"
-                                       LabelPlacement="Placement.Start"
-                                       Class="pa-4"
-                                       Color="Color.Primary"
-                                       @bind-Value="model.ShowAverage">
-                                Show average in the results
-                            </MudSwitch>
+                        <MudSwitch T="bool"
+                                   LabelPlacement="Placement.Start"
+                                   Class="pa-4"
+                                   Color="Color.Primary"
+                                   @bind-Value="model.ShowAverage">
+                            Show average in the results
+                        </MudSwitch>
 
-                        </MudExpansionPanel>
-                    </MudExpansionPanels>
+                    </MudExpansionPanel>
+                </MudExpansionPanels>
 
-                    <MudButton ButtonType="ButtonType.Submit"
-                               Variant="Variant.Filled"
-                               Color="Color.Primary"
-                               Class="pt-4"
-                               FullWidth>
-                        Create panning room
-                    </MudButton>
-                </EditForm>
+                <MudButton ButtonType="ButtonType.Submit"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           Class="pt-4"
+                           FullWidth>
+                    Create panning room
+                </MudButton>
+            </EditForm>
 
-            </div>
-        </MudItem>
-    </MudGrid>
+        </div>
+    </MudItem>
+</MudGrid>

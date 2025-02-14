@@ -26,11 +26,11 @@ public class ParticipantConfiguration : IEntityTypeConfiguration<Participant>
         builder.HasOne(p => p.Room)
             .WithMany(r => r.Participants)
             .HasForeignKey(p => p.RoomId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasMany(p => p.Votes)
             .WithOne(v => v.Participant)
             .HasForeignKey(v => v.ParticipantId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

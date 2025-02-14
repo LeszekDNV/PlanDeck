@@ -32,11 +32,11 @@ public class IssueConfiguration : IEntityTypeConfiguration<Issue>
         builder.HasOne(i => i.Room)
             .WithMany(r => r.Issues)
             .HasForeignKey(i => i.RoomId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasMany(i => i.Votes)
             .WithOne(v => v.Issue)
             .HasForeignKey(v => v.IssueId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }
