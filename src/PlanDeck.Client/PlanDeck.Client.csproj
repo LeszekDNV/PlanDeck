@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="Shared\Components\" />
   </ItemGroup>
 
   <ItemGroup>

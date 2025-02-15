@@ -1,6 +1,9 @@
 ﻿using PlanDeck.Application.Interfaces;
 using PlanDeck.Contracts.Dtos;
+using PlanDeck.Contracts.Room;
 using PlanDeck.Contracts.Room.Create;
+using PlanDeck.Contracts.Room.Get;
+using PlanDeck.Contracts.Room.Update;
 using PlanDeck.Domain.Entities;
 using PlanDeck.Domain.Entities.Enums;
 
@@ -8,15 +11,13 @@ namespace PlanDeck.Application.Services;
 
 public class RoomService(IKeyRepository<Room, Guid> roomRepository) : IRoomService
 {
-    public async Task<RoomDto> CreateRoomAsync(CreateRoomRequest request)
+    public async Task<Guid> CreateRoomAsync(CreateRoomRequest request)
     {
-        // Konwersja int -> enum
-        var votingSystem = (VotingSystem)request.VotingSystem;
-        var whoCanReveal = (RoomPermission)request.WhoCanRevealCards;
-        var whoCanManage = (RoomPermission)request.WhoCanManageIssues;
+        VotingSystem votingSystem = (VotingSystem)request.VotingSystem;
+        RoomPermission whoCanReveal = (RoomPermission)request.WhoCanRevealCards;
+        RoomPermission whoCanManage = (RoomPermission)request.WhoCanManageIssues;
 
-        // Tworzymy nową encję domenową
-        var newRoom = new Room
+        Room newRoom = new()
         {
             Name = request.Name,
             VotingSystem = votingSystem,
@@ -24,22 +25,66 @@ public class RoomService(IKeyRepository<Room, Guid> roomRepository) : IRoomServi
             WhoCanManageIssues = whoCanManage,
             AutoRevealCards = request.AutoRevealCards,
             ShowAverage = request.ShowAverage,
-            // Id i CreatedAt wygenerowane automatycznie dzięki konfiguracji EF + BaseEntity
         };
 
-        // Zapis w repozytorium / bazie
         await roomRepository.AddAsync(newRoom);
+        return newRoom.Id;
+    }
 
-        // Mapa zwrotnie na DTO
-        var result = new RoomDto
+    public async Task<UpdateRoomResponse> UpdateRoomAsync(UpdateRoomRequest request)
+    {
+        if (!Guid.TryParse(request.Id, out Guid roomId)) return new UpdateRoomResponse(false);
+
+        VotingSystem votingSystem = (VotingSystem)request.RoomSettings.VotingSystem;
+        RoomPermission whoCanReveal = (RoomPermission)request.RoomSettings.WhoCanRevealCards;
+        RoomPermission whoCanManage = (RoomPermission)request.RoomSettings.WhoCanManageIssues;
+        Room room = new()
         {
-            Id = newRoom.Id,
-            Name = newRoom.Name,
-            VotingSystem = (int)newRoom.VotingSystem,
-            AutoRevealCards = newRoom.AutoRevealCards,
+            Id = roomId,
+            Name = request.RoomSettings.Name,
+            VotingSystem = votingSystem,
+            WhoCanRevealCards = whoCanReveal,
+            WhoCanManageIssues = whoCanManage,
+            AutoRevealCards = request.RoomSettings.AutoRevealCards,
+            ShowAverage = request.RoomSettings.ShowAverage,
         };
+        await roomRepository.UpdateAsync(room);
+        return new UpdateRoomResponse(true)
+        {
+            RoomSettings = new RoomSettingsDto
+            {
+                Name = room.Name,
+                AutoRevealCards = room.AutoRevealCards,
+                VotingSystem = (VotingSystemsDto)room.VotingSystem,
+                WhoCanManageIssues = (RoomPermissionsDto)room.WhoCanManageIssues,
+                WhoCanRevealCards = (RoomPermissionsDto)room.WhoCanRevealCards,
+                ShowAverage = room.ShowAverage
+            }
+        };
+    }
 
-        return result;
+    public async Task<GetRoomSettingsResponse> GetRoomSettings(GetRoomSettingsRequest request)
+    {
+        GetRoomSettingsResponse response = new();
+        
+        if (!Guid.TryParse(request.Id, out Guid id))
+            return response;
+
+        Room? room = await roomRepository.GetById(id);
+        if (room is null) return response;
+
+
+
+        response.RoomSettings = new RoomSettingsDto
+        {
+            Name = room.Name,
+            AutoRevealCards = room.AutoRevealCards,
+            VotingSystem = (VotingSystemsDto)room.VotingSystem,
+            WhoCanManageIssues = (RoomPermissionsDto)room.WhoCanManageIssues,
+            WhoCanRevealCards = (RoomPermissionsDto)room.WhoCanRevealCards,
+            ShowAverage = room.ShowAverage
+        };
+        return response;
     }
 }
 

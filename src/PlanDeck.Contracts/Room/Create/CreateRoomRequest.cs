@@ -48,17 +48,3 @@ public record CreateRoomRequest
     [ProtoMember(7)]
     public UserDto Owner { get; set; }
 }
-
-public enum VotingSystemsDto
-{
-    Fibonacci = 0,
-    ModifiedFibonacci = 1,
-    TShirt = 2,
-    PowersOf2 = 3
-}
-
-public enum RoomPermissionsDto
-{
-    Everyone = 0,
-    OwnerOnly = 1
-}

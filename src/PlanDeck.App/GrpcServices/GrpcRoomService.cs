@@ -1,26 +1,23 @@
 ﻿using PlanDeck.Application.Interfaces;
 using PlanDeck.Contracts.Room;
 using PlanDeck.Contracts.Room.Create;
-using PlanDeck.Domain.Entities;
+using PlanDeck.Contracts.Room.Get;
+using PlanDeck.Contracts.Room.Update;
 using ProtoBuf.Grpc;
 
 namespace PlanDeck.App.GrpcServices;
 
-public class GrpcRoomService(IKeyRepository<Room, Guid> roomRepository) : IGrpcRoomService
+public class GrpcRoomService(IRoomService roomService) : IGrpcRoomService
 {
     public async Task<CreateRoomResponse> CreateRoom(CreateRoomRequest request, CallContext context = default)
     {
-        Room room = new()
-        {
-            Name = request.Name,
-            VotingSystem = (Domain.Entities.Enums.VotingSystem)(int)request.VotingSystem,
-            WhoCanRevealCards = (Domain.Entities.Enums.RoomPermission)(int)request.WhoCanRevealCards,
-            WhoCanManageIssues = (Domain.Entities.Enums.RoomPermission)(int)request.WhoCanManageIssues,
-            AutoRevealCards = request.AutoRevealCards,
-            ShowAverage = request.ShowAverage,
-            Participants = [new Participant { Name = request.Owner.Name }]
-        };
-        await roomRepository.AddAsync(room);
-        return new CreateRoomResponse(room.Id.ToString());
+        Guid result = await roomService.CreateRoomAsync(request);
+        return new CreateRoomResponse(result.ToString());
     }
+
+    public Task<UpdateRoomResponse> UpdateRoom(UpdateRoomRequest request, CallContext context = default) 
+        => roomService.UpdateRoomAsync(request);
+
+    public Task<GetRoomSettingsResponse> GetRoomSettings(GetRoomSettingsRequest request, CallContext context = default)
+        => roomService.GetRoomSettings(request);
 }

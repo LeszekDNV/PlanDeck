@@ -1,0 +1,9 @@
+﻿@if (isPlanningActive)
+{
+    <MudMenu Label="@activePlanningSettings?.Name" 
+             Variant="Variant.Text" 
+             Class="ml-4"
+             EndIcon="@Icons.Material.Filled.KeyboardArrowDown">
+        <MudMenuItem Label="Room settings" Icon="@Icons.Material.Filled.Settings" OnClick="OpenRoomSettingsDialog"/>
+    </MudMenu>
+}

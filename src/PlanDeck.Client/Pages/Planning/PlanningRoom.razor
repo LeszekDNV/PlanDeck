@@ -1,4 +1,43 @@
 ﻿@page "/planning/{Id}"
 
-<h3>PlanningRoom</h3>
+@if (IsLoaded)
+{
 
+
+    <h3>PlanningRoom</h3>
+
+    <MudText Typo="Typo.subtitle1">Name: </MudText>
+
+    <MudText Typo="Typo.subtitle2">@roomSettings?.Name</MudText>
+    <br />
+    <MudText Typo="Typo.subtitle1">VotingSystem: </MudText>
+
+    <MudText Typo="Typo.subtitle2">@roomSettings?.VotingSystem</MudText>
+    <br />
+    <MudText Typo="Typo.subtitle1">WhoCanRevealCards: </MudText>
+
+    <MudText Typo="Typo.subtitle2">@roomSettings?.WhoCanRevealCards</MudText>
+    <br />
+    <MudText Typo="Typo.subtitle1">WhoCanManageIssues: </MudText>
+
+    <MudText Typo="Typo.subtitle2">@roomSettings?.WhoCanManageIssues</MudText>
+    <br />
+    <MudText Typo="Typo.subtitle1">AutoRevealCards: </MudText>
+
+    <MudText Typo="Typo.subtitle2">@roomSettings?.AutoRevealCards</MudText>
+    <br />
+    <MudText Typo="Typo.subtitle1">ShowAverage: </MudText>
+
+    <MudText Typo="Typo.subtitle2">@roomSettings?.ShowAverage</MudText>
+
+}
+else
+{
+    <MudContainer>
+        <MudGrid Justify="Justify.Center">
+            <MudItem md="1" xs="1">
+                <MudProgressCircular Color="Color.Primary" Size="Size.Large" Indeterminate="true" />
+            </MudItem>
+        </MudGrid>
+    </MudContainer>
+}

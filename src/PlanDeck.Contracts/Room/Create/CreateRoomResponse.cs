@@ -11,5 +11,5 @@ public class CreateRoomResponse()
     }
 
     [ProtoMember(1)]
-    public string Id { get; }
+    public string Id { get; } = null!;
 }

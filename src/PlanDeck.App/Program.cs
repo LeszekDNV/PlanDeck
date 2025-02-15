@@ -4,6 +4,7 @@ using PlanDeck.Infrastructure.Persistence;
 using PlanDeck.Infrastructure.Persistence.Repositories;
 using ProtoBuf.Grpc.Server;
 using PlanDeck.App.GrpcServices;
+using PlanDeck.Application.Services;
 
 namespace PlanDeck.App;
 
@@ -20,6 +21,8 @@ public class Program
         builder.Services.AddScoped<DbContext, AppDbContext>();
         builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
         builder.Services.AddScoped(typeof(IKeyRepository<,>), typeof(KeyRepository<,>));
+
+        builder.Services.AddScoped<IRoomService, RoomService>();
 
         builder.Services.AddCodeFirstGrpc(config =>
         {
