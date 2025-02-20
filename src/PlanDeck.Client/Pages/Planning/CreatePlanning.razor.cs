@@ -5,6 +5,7 @@ using PlanDeck.Client.Services;
 using PlanDeck.Client.Shared.Dialgogs;
 using PlanDeck.Contracts.Dtos;
 using PlanDeck.Contracts.Room.Create;
+using PlanDeck.Contracts.Room.Update;
 
 namespace PlanDeck.Client.Pages.Planning;
 
@@ -17,7 +18,7 @@ public partial class CreatePlanning
 
     [Inject] public NavigationManager NavigationManager { get; set; } = null!;
 
-    [Inject] public RoomProxyService RoomService { get; set; } = null!;
+    [Inject] public IPlanningRoomService RoomService { get; set; } = null!;
 
     [Inject] public IUserLocalStorageService UserService { get; set; } = null!;
 
@@ -25,6 +26,7 @@ public partial class CreatePlanning
     {
         UserDto user = await UserService.GetUserAsync() ?? new UserDto
         {
+            Id = Guid.NewGuid().ToString(),
             Name = await ShowCreateUserModal()
         };
 

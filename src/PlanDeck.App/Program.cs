@@ -4,6 +4,7 @@ using PlanDeck.Infrastructure.Persistence;
 using PlanDeck.Infrastructure.Persistence.Repositories;
 using ProtoBuf.Grpc.Server;
 using PlanDeck.App.GrpcServices;
+using PlanDeck.Application.Services;
 
 namespace PlanDeck.App;
 
@@ -11,7 +12,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
+        WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
                 builder.Configuration.GetConnectionString("DefaultConnection"))
@@ -21,13 +22,15 @@ public class Program
         builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
         builder.Services.AddScoped(typeof(IKeyRepository<,>), typeof(KeyRepository<,>));
 
+        builder.Services.AddScoped<IRoomService, RoomService>();
+
         builder.Services.AddCodeFirstGrpc(config =>
         {
             config.ResponseCompressionLevel = System.IO.Compression.CompressionLevel.Optimal;
         });
 
 
-        var app = builder.Build();
+        WebApplication? app = builder.Build();
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())

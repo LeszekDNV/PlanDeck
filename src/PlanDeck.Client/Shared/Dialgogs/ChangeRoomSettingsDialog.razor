@@ -1,0 +1,76 @@
+﻿@using PlanDeck.Contracts.Dtos
+@using PlanDeck.Contracts.Room
+@using PlanDeck.Contracts.Room.Create
+
+<MudDialog DefaultFocus="DefaultFocus.FirstChild">
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.Settings" Class="mr-3 mb-n1"/>
+            Room settings
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudTextField Label="Room name"
+                      Variant="Variant.Outlined"
+                      Class="pa-4"
+                      MaxLength="200"
+                      @bind-Value="Model.Name"
+                      For="@(() => Model.Name)"/>
+        <MudSelect @bind-Value="Model.VotingSystem"
+                   Variant="Variant.Outlined"
+                   Class="pa-4"
+                   Label="Voiting system">
+            <MudSelectItem Value="@(VotingSystemsDto.Fibonacci)">Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ?, ☕)</MudSelectItem>
+            <MudSelectItem Value="@(VotingSystemsDto.ModifiedFibonacci)">Modified Fibonacci (0, 1/2, 1, 2, 3, 5, 8, 13, 20, 40, 100, ?, ☕)</MudSelectItem>
+            <MudSelectItem Value="@(VotingSystemsDto.TShirt)">T-Shirt (XS, S, M, L, XL, ?, ☕)</MudSelectItem>
+            <MudSelectItem Value="@(VotingSystemsDto.PowersOf2)">Powers of 2 (0, 1, 2, 4, 8, 16, 32, 64, ?, ☕)</MudSelectItem>
+        </MudSelect>
+
+        <MudSelect @bind-Value="Model.WhoCanManageIssues"
+                   Variant="Variant.Outlined"
+                   Class="pa-4"
+                   Label="Who can manage tasks">
+            <MudSelectItem Value="@(RoomPermissionsDto.Everyone)">Everyone</MudSelectItem>
+            <MudSelectItem Value="@(RoomPermissionsDto.OwnerOnly)">Only me</MudSelectItem>
+        </MudSelect>
+
+        <MudSelect @bind-Value="Model.WhoCanRevealCards"
+                   Variant="Variant.Outlined"
+                   Class="pa-4"
+                   Label="Who can reveal cards">
+            <MudSelectItem Value="@(RoomPermissionsDto.Everyone)">Everyone</MudSelectItem>
+            <MudSelectItem Value="@(RoomPermissionsDto.OwnerOnly)">Only me</MudSelectItem>
+        </MudSelect>
+
+        <MudSwitch T="bool"
+                   LabelPlacement="Placement.Start"
+                   Color="Color.Primary"
+                   Class="pa-4"
+                   @bind-Value="Model.AutoRevealCards">
+            Auto-reveal cards
+        </MudSwitch>
+
+        <MudSwitch T="bool"
+                   LabelPlacement="Placement.Start"
+                   Class="pa-4"
+                   Color="Color.Primary"
+                   @bind-Value="Model.ShowAverage">
+            Show average in the results
+        </MudSwitch>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Submit">Update room settings</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [Parameter]
+    public RoomSettingsDto Model { get; set; } = new();
+
+    [CascadingParameter] private IMudDialogInstance MudDialog { get; set; }
+
+    private void Submit()
+    {
+        MudDialog.Close(DialogResult.Ok(Model));
+    }
+}

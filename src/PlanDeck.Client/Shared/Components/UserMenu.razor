@@ -1,0 +1,13 @@
+﻿@if (activeUser != null)
+{
+    <MudMenu>
+        <ActivatorContent>
+            <MudBadge Color="Color.Success" Overlap="true" Bordered="true">
+                <MudAvatar Color="Color.Secondary">@userFirstLetter</MudAvatar>
+            </MudBadge>
+        </ActivatorContent>
+        <ChildContent>
+            <MudMenuItem Label="Wyloguj" Icon="@Icons.Material.Filled.Logout" OnClick="Logout"/>
+        </ChildContent>
+    </MudMenu>
+}
