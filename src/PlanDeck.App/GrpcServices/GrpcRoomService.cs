@@ -2,6 +2,7 @@
 using PlanDeck.Contracts.Room;
 using PlanDeck.Contracts.Room.Create;
 using PlanDeck.Contracts.Room.Get;
+using PlanDeck.Contracts.Room.State;
 using PlanDeck.Contracts.Room.Update;
 using ProtoBuf.Grpc;
 
@@ -20,4 +21,7 @@ public class GrpcRoomService(IRoomService roomService) : IGrpcRoomService
 
     public Task<GetRoomSettingsResponse> GetRoomSettings(GetRoomSettingsRequest request, CallContext context = default)
         => roomService.GetRoomSettings(request);
+
+    public IAsyncEnumerable<ServerStreamMessage> Connect(SubscribeRequest request, CallContext context = default) 
+        => roomService.Connect(request, context.CancellationToken);
 }

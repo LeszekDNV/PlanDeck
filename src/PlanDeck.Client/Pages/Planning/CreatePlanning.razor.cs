@@ -26,6 +26,7 @@ public partial class CreatePlanning
     {
         UserDto user = await UserService.GetUserAsync() ?? new UserDto
         {
+            Id = Guid.NewGuid().ToString(),
             Name = await ShowCreateUserModal()
         };
 

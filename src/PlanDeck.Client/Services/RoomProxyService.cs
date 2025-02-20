@@ -5,10 +5,11 @@ using ProtoBuf.Grpc.Client;
 using MudBlazor;
 using PlanDeck.Contracts.Room.Get;
 using PlanDeck.Contracts.Room.Update;
+using PlanDeck.Contracts.Dtos;
 
 namespace PlanDeck.Client.Services;
 
-public class RoomProxyService(GrpcChannel channel, ISnackbar snackbar)
+public class RoomProxyService(GrpcChannel channel, ISnackbar snackbar, IUserLocalStorageService userService)
 {
     private readonly IGrpcRoomService _roomService = channel.CreateGrpcService<IGrpcRoomService>();
 
@@ -31,8 +32,10 @@ public class RoomProxyService(GrpcChannel channel, ISnackbar snackbar)
         UpdateRoomRequest request = new()
         {
             Id = id,
-            RoomSettings = settings
+            RoomSettings = settings,
+            User = await userService.GetUserAsync()
         };
+
         try
         {
             UpdateRoomResponse response = await _roomService.UpdateRoom(request);

@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using PlanDeck.Application.Interfaces;
 using PlanDeck.Domain.ValueObjects;
@@ -120,7 +121,7 @@ public class BaseRepository<T> : IRepository<T> where T : class
 
     public async Task ApplyPatchAsync(T entity, params Patch[] patches)
     {
-        await using var transaction = await Context.Database.BeginTransactionAsync();
+        await using IDbContextTransaction? transaction = await Context.Database.BeginTransactionAsync();
         Dictionary<string, object> nameValuePairProperties = patches.ToDictionary(a => a.PropertyName, a => a.PropertyValue)!;
         EntityEntry<T> dbEntityEntry = Context.Entry(entity);
         dbEntityEntry.CurrentValues.SetValues(nameValuePairProperties);

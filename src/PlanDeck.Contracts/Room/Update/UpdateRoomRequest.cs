@@ -18,9 +18,11 @@ public record UpdateRoomRequest
         RoomPermissionsDto whoCanRevealCards,
         RoomPermissionsDto whoCanManageIssues,
         bool autoRevealCards,
-        bool showAverage)
+        bool showAverage,
+        UserDto user)
     {
         Id = id;
+        User = user;
         RoomSettings = new()
         {
             Name = name,
@@ -37,4 +39,7 @@ public record UpdateRoomRequest
 
     [ProtoMember(2)]
     public RoomSettingsDto RoomSettings { get; set; }
+
+    [ProtoMember(3)]
+    public UserDto User { get; set; }
 }

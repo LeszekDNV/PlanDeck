@@ -16,8 +16,7 @@ public interface IUserLocalStorageService
     event EventHandler UserLoggedOut;
 }
 
-public class UserLocalStorageService(ILocalStorageService localStorageService)
-    : IUserLocalStorageService
+public class UserLocalStorageService(ILocalStorageService localStorageService) : IUserLocalStorageService
 {
     private const string UserKey = "PD_CurrentUser";
 
@@ -49,7 +48,7 @@ public class UserLocalStorageService(ILocalStorageService localStorageService)
     /// <returns></returns>
     public async Task UpdateUserAsync(UserDto user)
     {
-        var existingUser = await GetUserAsync();
+        UserDto? existingUser = await GetUserAsync();
 
         if (existingUser is not null)
         {

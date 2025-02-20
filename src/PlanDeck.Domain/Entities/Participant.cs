@@ -6,8 +6,12 @@ public class Participant : BaseEntity
 
     public bool IsObserver { get; set; }
 
+    public Guid? ClientUserId { get; set; }
+
     public Guid RoomId { get; set; }
     public Room Room { get; set; }
-    
+
+    public DateTime LastSeen { get; set; }
+
     public ICollection<Vote> Votes { get; set; } = new List<Vote>();
 }

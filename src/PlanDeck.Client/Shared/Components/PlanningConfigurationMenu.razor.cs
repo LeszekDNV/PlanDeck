@@ -2,7 +2,7 @@
 using MudBlazor;
 using PlanDeck.Client.Services;
 using PlanDeck.Client.Shared.Dialgogs;
-using PlanDeck.Contracts.Room;
+using PlanDeck.Contracts.Dtos;
 
 namespace PlanDeck.Client.Shared.Components;
 

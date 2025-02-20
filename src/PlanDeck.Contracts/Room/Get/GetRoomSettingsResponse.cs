@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using PlanDeck.Contracts.Dtos;
+using ProtoBuf;
 
 namespace PlanDeck.Contracts.Room.Get;
 

@@ -8,14 +8,14 @@ using PlanDeck.Client.Services;
 using MudBlazor.Services;
 using MudBlazor;
 
-var builder = WebAssemblyHostBuilder.CreateDefault(args);
+WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-var path = builder.HostEnvironment.BaseAddress;
-builder.Services.AddScoped<GrpcChannel>(services => GrpcChannel.ForAddress(path, new GrpcChannelOptions
+string path = builder.HostEnvironment.BaseAddress;
+builder.Services.AddSingleton(services => GrpcChannel.ForAddress(path, new GrpcChannelOptions
 {
-    HttpHandler = new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler())
+    HttpHandler = new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()),    
 }));
 builder.Services.AddMudServices(config =>
 {
@@ -26,4 +26,5 @@ builder.Services.AddMudServices(config =>
 builder.Services.AddTransient<RoomProxyService>();
 builder.Services.AddScoped<IUserLocalStorageService, UserLocalStorageService>();
 builder.Services.AddScoped<IPlanningRoomService, PlanningRoomService>();
+builder.Services.AddSingleton<IConnectionProxyService, ConnectionProxyService>();
 await builder.Build().RunAsync();

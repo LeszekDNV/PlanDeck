@@ -1,7 +1,6 @@
-﻿using PlanDeck.Contracts.Dtos;
-using ProtoBuf;
+﻿using ProtoBuf;
 
-namespace PlanDeck.Contracts.Room;
+namespace PlanDeck.Contracts.Dtos;
 
 [ProtoContract]
 public class RoomSettingsDto

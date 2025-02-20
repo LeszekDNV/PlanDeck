@@ -11,6 +11,8 @@ public class Room : BaseEntity
     public bool AutoRevealCards { get; set; }
     public bool ShowAverage { get; set; }
 
+    public Guid? OwnerClientId { get; set; }
+
     public ICollection<Participant> Participants { get; set; } = new List<Participant>();
     public ICollection<Issue> Issues { get; set; } = new List<Issue>();
 }
