@@ -1,0 +1,39 @@
+﻿<MudDialog DefaultFocus="DefaultFocus.FirstChild"  >
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.Link" Class="mr-3 mb-n1" />
+            Your invitation link
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudTextField AutoFocus Label="Invite link" Variant="Variant.Outlined" Value="InviteLink" ReadOnly/>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Success" OnClick="OnCopyClicked">Copy</MudButton>
+        <MudButton Color="Color.Primary" OnClick="OnSubmitClicked">Close</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = null!;
+
+
+    [Parameter] 
+    public string InviteLink { get; set; } = "";
+
+    [CascadingParameter]
+    private IMudDialogInstance? MudDialog { get; set; }
+
+    private async Task OnCopyClicked()
+    {
+        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", InviteLink);
+        Snackbar.Add("Link copied to clipboard.", Severity.Success);
+    }
+
+    private void OnSubmitClicked()
+    {
+        MudDialog?.Close(DialogResult.Ok(InviteLink));
+    }
+
+}
