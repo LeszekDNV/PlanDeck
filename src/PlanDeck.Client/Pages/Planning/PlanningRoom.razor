@@ -1,34 +1,60 @@
 ﻿@page "/planning/{Id}"
 
+@* https://planning-poker-agile.web.app/game/01JMMX14SWNDWP3462PMSXGKNN *@
+
 @if (IsLoaded)
 {
+    <MudGrid>
+        <MudItem xs="12">
+            <MudGrid Justify="Justify.Center">
+                @for (int i = 0; i < 5; i++)
+                {
+                    <MudItem xs="1">
+                        <MudPaper Height="16em" Class="d-flex flex-column align-center justify-center mud-width-full py-8">
+                            <h1>3</h1>
+                        </MudPaper>
+                    </MudItem>
+                }
+            </MudGrid>
+        </MudItem>
+        <MudItem xs="12">
+            <MudGrid Justify="Justify.Center">
+                <MudItem xs="6">
+                    <MudCard>
+                        <MudCardHeader>
+                            Header
+                        </MudCardHeader>
+                        <MudCardContent Class="d-flex flex-column align-center justify-center mud-width-full">
+                            <MudPaper Class="d-flex justify-center flex-grow-1 gap-4" Style="background-color: transparent" Elevation="0">
+                                <MudTooltip Arrow Placement="Placement.Top" Text="Reveal">
+                                    <MudFab IconColor="Color.Success" StartIcon="@Icons.Material.Filled.RemoveRedEye" DropShadow="false" />
+                                </MudTooltip>
+                                <MudTooltip Arrow Placement="Placement.Top" Text="Reveal">
+                                    <MudFab IconColor="Color.Secondary" StartIcon="@Icons.Material.Filled.Autorenew" DropShadow="false" />
+                                </MudTooltip>
+                                <MudTooltip Arrow Placement="Placement.Top" Text="Exit">
+                                    <MudFab IconColor="Color.Warning" StartIcon="@Icons.Material.Filled.ExitToApp" DropShadow="false" />
+                                </MudTooltip>
+                                <MudTooltip Arrow Placement="Placement.Top" Text="Invite">
+                                    <MudFab IconColor="Color.Info" StartIcon="@Icons.Material.Filled.Link" DropShadow="false"
+                                            OnClick="OnInviteBtnClicked"/>
+                                </MudTooltip>
+                            </MudPaper>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+    </MudGrid>
 
+    <MudPaper Class="d-flex justify-center flex-grow-1 gap-4 mt-16" Style="background-color: transparent" Elevation="0">
+        <MudPaper Class="mud-theme-secondary mb-1" Width="6em" Height="9em" />
 
-    <h3>PlanningRoom</h3>
-
-    <MudText Typo="Typo.subtitle1">Name: </MudText>
-
-    <MudText Typo="Typo.subtitle2">@roomSettings?.Name</MudText>
-    <br />
-    <MudText Typo="Typo.subtitle1">VotingSystem: </MudText>
-
-    <MudText Typo="Typo.subtitle2">@roomSettings?.VotingSystem</MudText>
-    <br />
-    <MudText Typo="Typo.subtitle1">WhoCanRevealCards: </MudText>
-
-    <MudText Typo="Typo.subtitle2">@roomSettings?.WhoCanRevealCards</MudText>
-    <br />
-    <MudText Typo="Typo.subtitle1">WhoCanManageIssues: </MudText>
-
-    <MudText Typo="Typo.subtitle2">@roomSettings?.WhoCanManageIssues</MudText>
-    <br />
-    <MudText Typo="Typo.subtitle1">AutoRevealCards: </MudText>
-
-    <MudText Typo="Typo.subtitle2">@roomSettings?.AutoRevealCards</MudText>
-    <br />
-    <MudText Typo="Typo.subtitle1">ShowAverage: </MudText>
-
-    <MudText Typo="Typo.subtitle2">@roomSettings?.ShowAverage</MudText>
+        @for (int i = 0; i < 13; i++)
+        {
+            <MudPaper Class="mud-theme-primary" Width="6em" Height="9em" />
+        }
+    </MudPaper>
 
 }
 else

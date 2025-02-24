@@ -7,6 +7,7 @@ using PlanDeck.Client;
 using PlanDeck.Client.Services;
 using MudBlazor.Services;
 using MudBlazor;
+using MudBlazor.Extensions;
 
 WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -22,6 +23,9 @@ builder.Services.AddMudServices(config =>
     config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomRight;
     config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
 }).AddBlazoredLocalStorage();
+builder.Services.AddMudServicesWithExtensions();
+builder.Services.AddMudExtensions();
+
 
 builder.Services.AddTransient<RoomProxyService>();
 builder.Services.AddScoped<IUserLocalStorageService, UserLocalStorageService>();
